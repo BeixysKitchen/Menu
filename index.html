@@ -26,19 +26,6 @@
       padding: 0;
       color: #2B2929;
     }
-    /*
-      Logo size variables:
-      Use CSS custom properties to control the minimum, preferred and maximum height of the logo.
-      Adjust these variables to fine‑tune how large the logo appears across different screen sizes.
-      The `clamp()` function in the `.header .logo img` selector uses these variables to constrain
-      the logo’s height between a minimum and maximum while allowing it to scale relative to
-      the viewport width.
-    */
-    :root {
-      --logo-height-min: 120px;
-      --logo-height-preferred: 20vw;
-      --logo-height-max: 360px;
-    }
     .container {
       max-width: 960px;
       margin: 0 auto;
@@ -176,6 +163,27 @@
       .dish-card { flex-direction: column; }
       .dish-card img { width: 100%; height: auto; }
       .video-item { flex: 1 1 100%; }
+
+      /*
+        Mobile typography adjustments:
+        On smaller screens the header text appears too small while the fun facts and footer text feel
+        oversized. Increase the header headline sizes and decrease the font size for fun facts and
+        footer content to create a more balanced reading experience on mobile.
+      */
+      .header h1 {
+        font-size: 32px;
+      }
+      .header p.subtitle {
+        font-size: 36px;
+      }
+      /* Reduce the font size for the fun fact lines without affecting the main dish description */
+      .dish-content p.fact {
+        font-size: 16px;
+      }
+      /* Scale down the footer text to prevent it from dominating on small screens */
+      .footer {
+        font-size: 16px;
+      }
     }
   
     /* Social media section: displays follow icons and contact details */
@@ -201,14 +209,10 @@
       /* Rely on the header gap for spacing instead of a fixed margin */
     }
     .header .logo img {
-      /*
-        Fluid logo sizing:
-        The `clamp()` function ensures the logo height never goes below `--logo-height-min`,
-        scales responsively with the viewport (`--logo-height-preferred`), and never exceeds
-        `--logo-height-max`.  Adjust the custom properties declared in the `:root` section
-        to change the logo’s size rules.
-      */
-      height: clamp(var(--logo-height-min), var(--logo-height-preferred), var(--logo-height-max));
+      /* Set a fixed height so the logo scales proportionally without dominating the header */
+      height: 360px;
+      /* Prevent the logo from exceeding the header height */
+      max-height: 360px;
       width: auto;
       object-fit: contain;
     }
